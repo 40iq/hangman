@@ -1,0 +1,36 @@
+(function(){const t=document.createElement("link").relList;if(t&&t.supports&&t.supports("modulepreload"))return;for(const a of document.querySelectorAll('link[rel="modulepreload"]'))o(a);new MutationObserver(a=>{for(const i of a)if(i.type==="childList")for(const r of i.addedNodes)r.tagName==="LINK"&&r.rel==="modulepreload"&&o(r)}).observe(document,{childList:!0,subtree:!0});function s(a){const i={};return a.integrity&&(i.integrity=a.integrity),a.referrerPolicy&&(i.referrerPolicy=a.referrerPolicy),a.crossOrigin==="use-credentials"?i.credentials="include":a.crossOrigin==="anonymous"?i.credentials="omit":i.credentials="same-origin",i}function o(a){if(a.ep)return;a.ep=!0;const i=s(a);fetch(a.href,i)}})();const h="/hangman/assets/gallow0-I0pFEUHh.png",g="/hangman/assets/gallow1-IxddUuZV.png",p="/hangman/assets/gallow2-UWHfVz2J.png",w="/hangman/assets/gallow3-mOFZMDnN.png",_="/hangman/assets/gallow4-9-TOwNP6.png",y="/hangman/assets/gallow5--tycKe-V.png",f="/hangman/assets/gallow6-nR8-anQL.png",q=`
+<header class="header">
+  <h1 class="header__title">
+    Hangman<span class="header__title_small">
+      by <a class="header__title__link" href="https://github.com/40iq">40iq</a></span
+    >
+  </h1>
+</header>`,L=`
+<main>
+<section class="section-app">
+  <div class="section-app__gallows-part">
+    <img src="${h}" alt="gallow" class="gallow-parts__img visible" />
+    <img src="${g}" alt="gallow" class="gallow-parts__img" />
+    <img src="${p}" alt="gallow" class="gallow-parts__img" />
+    <img src="${w}" alt="gallow" class="gallow-parts__img" />
+    <img src="${_}" alt="gallow" class="gallow-parts__img" />
+    <img src="${y}" alt="gallow" class="gallow-parts__img" />
+    <img src="${f}" alt="gallow" class="gallow-parts__img" />
+  </div>
+  <div class="section-app__quiz-part">
+    <div class="quiz-part__secret-word"></div>
+    <div class="quiz-part__question-container">
+      <span class="question"></span>
+    </div>
+    <div class="quiz-part__attemps">Incorrect guesses:&nbsp;<span class="attemps-counter">0/6</span></div>
+    <div class="quiz-part__keyboard"></div>
+    </div>
+</section>
+</main>`,R=`
+<div class="game-over-modal">
+  <div class="modal__container">
+    <div class="modal__result">You have guessed the secret word</div>
+    <div class="modal__answer">Secret word : <span class="modal__secret-word">PIZDA</span></div>
+    <button class="modal__btn">Play again</button>
+  </div>
+</div>`,n=[{q:"Data structure is typically used for Last-In-First-Out (LIFO) operations",a:"STACK"},{q:"What is a type of global object that is used to store data",a:"ARRAY"},{q:"What is a value that is considered false when encountered in a Boolean context",a:"FALSY"},{q:"It is a development tool that combines multiple...",a:"BUNDLER"},{q:"Channel in rs-school discord ",a:"MODERATION"},{q:"JS framework",a:"REACT"},{q:"You are future",a:"DEVELOPER"},{q:"Best time to submit",a:"DEADLINE"},{q:"It is object is used for matching text with a pattern",a:"REGEXP"},{q:"Method to convert value to JSON string",a:"STRINGIFY"},{q:"Interface that allow user to communicate with computer",a:"TERMINAL"},{q:"Best community school",a:"RSSCHOOL"},{q:"JS primitive",a:"SYMBOL"},{q:"Array method",a:"FOREACH"},{q:"This file to specify which files souhld be ignored",a:"GITIGNORE"},{q:"Bundlers mode",a:"PRODUCTION"}],l=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];function v(){const e=document.querySelector(".container");e.innerHTML=q+L,document.body.innerHTML+=R}function b(e){const t=document.querySelectorAll(".gallow-parts__img");return e.attemps=`${Number(e.attemps.slice(0,1))+1}/6`,e.attempsRoot.textContent=e.attemps,t[Number(e.attemps.slice(0,1))].classList.add("visible"),e.attemps==="6/6"&&e.showResult("lose"),e}function I(e,t){const s=document.querySelectorAll(".secret-word_letter");for(let o=0;o<e.answer.length;o+=1)if(t===e.answer[o]&&(s[o].textContent=t,s[o].classList.add("guessed"),e.guessed+=1),e.guessed===e.answer.length)return e.showResult("win"),e;return e}function c(){return Math.floor(Math.random()*n.length)}class S{constructor(t){this.lastGameIndex=t,this.wordIndex,this.question,this.answer,this.attemps="0/6",this.guessed=0,this.questionRoot,this.answerRoot,this.attempsRoot,this.resultWordRoot,this.resultRoot,this.modal,this.initGameLayout()}getSecretWord(){if(this.wordIndex=c(),this.wordIndex===this.lastGameIndex)for(;this.lastGameIndex===this.wordIndex;)this.wordIndex=c();return this.question=n[this.wordIndex].q,this.answer=n[this.wordIndex].a,this.lastGameIndex=this.wordIndex,localStorage.setItem("lastGame",JSON.parse(this.wordIndex)),this}setRoots(){return this.answerRoot=document.querySelector(".quiz-part__secret-word"),this.questionRoot=document.querySelector(".question"),this.attempsRoot=document.querySelector(".attemps-counter"),this.resultWordRoot=document.querySelector(".modal__secret-word"),this.resultRoot=document.querySelector(".modal__result"),this.modal=document.querySelector(".game-over-modal"),this}createElements(){for(let t=0;t<this.answer.length;t+=1){const s=document.createElement("span");s.classList.add("secret-word_letter"),this.answerRoot.append(s)}return this.questionRoot.append(this.question),this}initGameLayout(){return this.getSecretWord(),this.setRoots(),this.createElements(),this}resetLayout(){this.answerRoot.innerHTML="",this.questionRoot.innerHTML="",this.attempsRoot.innerHTML="0/6",this.attemps="0/6",this.guessed=0;const t=document.querySelectorAll(".gallow-parts__img");for(let s=1;s<t.length;s+=1)t[s].classList.remove("visible");return this.initGameLayout(),this}handleAttempt(t){if(!t.target.classList.contains("keyboard__cell")||t.target.classList.contains("disabled")||this.attemps==="6/6"||this.guessed===this.answer.length)return this;t.target.classList.add("disabled");const s=t.target.textContent;return this.answer.includes(s)?I(this,s):b(this)}showResult(t){this.modal.classList.add("active");let s="You have guessed the secret word!";return s=t==="win"?s:"You lose!",this.resultRoot.textContent=s,this.resultWordRoot.textContent=this.answer,this.modal.classList.add(`modal_${t}`),this.resultRoot.classList.add(t),this}hideResult(){const t=this.resultRoot.classList[1];return this.modal.classList.remove("active"),this.modal.classList.remove(`modal_${t}`),this.resultRoot.classList.remove(t),this}}class E{constructor(){this.root,this.initKeyboard()}setRoot(){return this.root=document.querySelector(".quiz-part__keyboard"),this}createKey(t){const s=document.createElement("div");s.classList.add("keyboard__cell"),s.textContent=t,this.root.append(s)}addKeys(){for(let t=0;t<l.length;t+=1)this.createKey(l[t])}initKeyboard(){this.setRoot().addKeys()}resetKeyboard(){this.root.innerHTML="",this.initKeyboard()}}document.body.innerHTML='<div class="container"></div>'+document.body.innerHTML;v();let d;localStorage.getItem("lastGame")&&(d=JSON.stringify(localStorage.getItem("lastGame")));const u=new E,m=new S(d);u.root.addEventListener("click",function(e){m.handleAttempt(e)});document.addEventListener("keydown",function(e){const t=e.code.slice(-1);document.querySelectorAll(".keyboard__cell").forEach(o=>{o.textContent===t&&o.click()})});const O=document.querySelector(".modal__btn");O.addEventListener("click",function(){m.hideResult().resetLayout(),u.resetKeyboard()});
