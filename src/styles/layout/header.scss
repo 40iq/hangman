@@ -1,0 +1,26 @@
+.header {
+  width: 100%;
+  padding: 20px 30px;
+  background-color: $bg-header;
+}
+
+.header__title {
+  font-size: 3em;
+  color: $text-brown;
+}
+
+.header__title_small {
+  font-size: 0.5em;
+  user-select: none;
+  color: #fff;
+  & .header__title__link {
+    color: inherit;
+    transition: 0.6s;
+    @media (hover: hover) {
+      &:hover {
+        font-size: 1.3em;
+        color: $text-brown;
+      }
+    }
+  }
+}

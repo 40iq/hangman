@@ -1,0 +1,18 @@
+@import 'src/styles/abstracts/reset.scss';
+@import 'src/styles/abstracts/variables.scss';
+@import 'src/styles/layout/header.scss';
+@import 'src/styles/layout/app.scss';
+@import 'src/styles/components/keyboard.scss';
+@import 'src/styles/layout/modal.scss';
+
+html {
+  background-color: $bg-header;
+}
+.container {
+ position: relative;
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
